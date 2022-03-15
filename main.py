@@ -1,12 +1,12 @@
+#!/usr/bin/env python3
+
 import random
 from Central_legitimization_agency import *
 from Central_tabulating_facility import *
 from Voter import *
 
-#TESTING GROUND
-# cla = Central_legitimimation_agency()
-# print(type(cla))
-#===========================================#
+#TODO check input in terminal
+
 voter_identification_number = {}   
 def generate_voter_identification_number():
     random_number = random.randint(1000000000, 9999999999)
@@ -19,7 +19,7 @@ def generate_voter_identification_number():
 
 
 cla = Central_legitimimation_agency()
-candidate_list = {}
+candidate_list = []
 
 
 print("Hello! Welcome to the elections")
@@ -29,13 +29,25 @@ candidates_num = int(candidates_num_input)
 
 candidate_counter = 0
 # While loop candidates_num >= candidate_counter
-# Check if candidate exists & dont lets them add
-candidates_name_input = input("Please enter the name of the candidate number " + (candidate_counter + 1) + "\n")
-candidate_list[candidate_counter] = candidates_name_input
-candidate_counter += 1
+while (candidates_num > candidate_counter):
+    # Check if candidate exists & dont lets them add
+    candidates_name_input = input("Please enter the name of the candidate number " + str(candidate_counter + 1) + "\n")
+    candidates_name = str(candidates_name_input)
+    if (candidate_list.__contains__(candidates_name)):
+        print("Candidate " + candidates_name + " has already been registered")
+    else:
+        candidate_list.append(candidates_name)
+        candidate_counter += 1
+
+print("List of candidates are: ")
+print(candidate_list)
 
 
-validation_number_list = cla.valid_nums_list()
+
+
+#====================
+
+validation_number_list = cla.valid_nums_list()              #TODO ctf initialization does not need list of validation numbers
 ctf = Central_tabulating_facility(validation_number_list)   #CLA sends validation numbers to CTF and adds voters to the list
 for name in candidate_list:                                 #CTF initializes the names of candidates
     ctf.initialize_candidate_names(name)
@@ -57,7 +69,15 @@ cla.store_validation_number(voter_id_number, voter_name_input)
 print(voter_name_input + " has the ideantification number " + voter_id_number + "\n")
 # get validation number
 voter_validation_number = cla.generate_validation_number()
+voter.set_validation_number(voter_validation_number)
 
+print("Validation number has been successfully sent")
+
+
+
+
+vote_input = input("Voter " + voter_validation_number + ", please enter the number to vote for the desired candidate\n" + candidate_list + "\n")
+vote = int(vote_input)
 
 
 

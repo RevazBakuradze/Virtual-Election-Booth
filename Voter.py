@@ -28,3 +28,6 @@ class Voter:
             print("Cannot vote! Need validation number")
         else:
             print("Make digital signature")
+
+    def send_vote(self):
+        return 'vote'
