@@ -83,15 +83,14 @@ while(voters_num > vote_counter):
     
     # at pressing some key "stop", voting process stops break
 
-
-print(cla.valid_nums_list())
+validation_number_list = cla.valid_nums_list()
+ctf.set_validation_number_list(validation_number_list)
+print(ctf.validation_number_list)
 print("Validation numbers has been successfully sent")
 # print(cla.send_validation_number())
 
 #==========================
 
-
-validation_number_list = cla.valid_nums_list()  
 
 '''
 Steps for voting

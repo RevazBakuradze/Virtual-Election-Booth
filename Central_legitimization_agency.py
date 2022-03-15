@@ -6,6 +6,7 @@ class Central_legitimimation_agency:
     def __init__(self):
         pass
 
+    # Used for sending validation number to VOTER
     def send_validation_number(self, recipient):
         num = self.generate_validation_number()
         # if else to make sure user is not duplicated. If user already requested dont give
@@ -23,7 +24,7 @@ class Central_legitimimation_agency:
         else:
             return self.generate_validation_number()
 
-
+    # Send validation numbers to CLA
     def valid_nums_list(self):
         print(self.validation_number_recipient)
         return self.validation_number_recipient.keys()
