@@ -19,6 +19,5 @@ class Central_legitimimation_agency:
         print("Generating validation number")
         return 12345867585865865
 
-    def valid_nums_list():
-        # only send validation numbers NOT USERNAMES
-        return self.validation_number_recipient
+    def valid_nums_list(self):
+        return self.validation_number_recipient.keys()

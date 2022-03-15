@@ -11,6 +11,9 @@ class Central_tabulating_facility:
         self.list_of_voters = []
         pass
 
+    def update_list_of_voters(self, voter):
+        self.list_of_voters.append(voter)
+
     def check_validation_number_exists(self, validation_number):
         # if (validation_number_list.constains())
         # return True
