@@ -7,12 +7,11 @@ from Voter import *
 
 #TODO check input in terminal
 
+voters_list = []
 voter_identification_number = {}   
-def generate_voter_identification_number(voter_name):
+def generate_voter_identification_number():
     random_number = random.randint(1000000000, 9999999999)
     if (not voter_identification_number.__contains__(random_number)):
-        if (voter_identification_number.__contains__(voter_name)):
-            print(voter_name + " has already voted")
         voter_identification_number[random_number] = True
         return random_number
     else:
@@ -21,7 +20,6 @@ def generate_voter_identification_number(voter_name):
 
 cla = Central_legitimimation_agency()
 candidate_list = []
-
 
 print("Hello! Welcome to the elections")
 
@@ -57,30 +55,36 @@ vote_counter = 0
 while(voters_num > vote_counter):
     voter_name_input = input("Please enter name of the voter number " + str(vote_counter + 1) + "\n")
 
-    voter_id_number = generate_voter_identification_number(str(voter_name_input))
-    voter = Voter(voter_id_number)
-    
-    # Generates validation number for voter and stores it with identification number
-    voter_validation_number = cla.send_validation_number(voter_id_number)   
-    voter.set_validation_number(voter_validation_number)
-
-    print(voter_name_input + " has the ideantification number " + str(voter.get_identification_number()) + "\n")
-
-    print(candidate_list)
-    vote_input = input("Voter " + str(voter.get_identification_number()) + 
-    ", please enter the full name of the desired candidate\n")
-
-    vote = str(vote_input)
-    if (candidate_list.__contains__(vote)):
-        vote_counter += 1
-        voter.send_vote() #TODO implemnt vote
+    #Making sure there is no double vote
+    if (voters_list.__contains__(str(voter_name_input))):
+        print("Voter " + str(voter_name_input) + " has already voted")
     else:
-        print("Candidate is not in the list")
+        voters_list.append(str(voter_name_input))
+        voter_id_number = generate_voter_identification_number()
+        voter = Voter(voter_id_number)
+        
+        # Generates validation number for voter and stores it with identification number
+        voter_validation_number = cla.send_validation_number(voter_id_number)   
+        voter.set_validation_number(voter_validation_number)
+        print(str(voter_validation_number)) # TODO DELETE IMMIDIATLY
+
+        print(voter_name_input + " has the ideantification number " + str(voter.get_identification_number()) + "\n")
+
+        print(candidate_list)
+        vote_input = input("Voter " + str(voter.get_identification_number()) + ", please enter the full name of the desired candidate\n")
+
+        vote = str(vote_input)
+        if (candidate_list.__contains__(vote)):
+            vote_counter += 1
+            voter.send_vote() #TODO implemnt vote
+        else:
+            print("Candidate is not in the list")
 
     
     # at pressing some key "stop", voting process stops break
 
 
+print(cla.valid_nums_list())
 print("Validation numbers has been successfully sent")
 # print(cla.send_validation_number())
 
