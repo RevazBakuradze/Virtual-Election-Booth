@@ -8,6 +8,9 @@ class Voter:
         self.identification_number = identification_number 
         pass
 
+    def get_identification_number(self):
+        return self.identification_number
+
     def set_validation_number(self, validation_number):
         self.validation_number = validation_number
 

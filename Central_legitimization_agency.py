@@ -1,3 +1,5 @@
+import random
+
 class Central_legitimimation_agency:
     validation_number_recipient = {}
 
@@ -8,16 +10,25 @@ class Central_legitimimation_agency:
         num = self.generate_validation_number()
         # if else to make sure user is not duplicated. If user already requested dont give
         self.store_validation_number(num, recipient)
-        print("sending validation number")
+        return num
 
     def store_validation_number(self, number, recipient):
         # if else to make sure user is not duplicated
         self.validation_number_recipient[recipient] = number
 
     def generate_validation_number(self):
-        # if else to prevent same # generation
-        print("Generating validation number")
-        return 12345867585865865
+        random_number = random.randint(1000000000, 9999999999)
+        if (not self.validation_number_recipient.__contains__(random_number)):
+            return random_number
+        else:
+            return self.generate_validation_number()
+
 
     def valid_nums_list(self):
         return self.validation_number_recipient.keys()
+
+    #TODO probably take it out. Exposes voters
+    def get_validation_number_recipient(self):
+        print("oh, hi mark")
+        print(self.validation_number_recipient)
+        # return self.validation_number_recipient

@@ -8,10 +8,11 @@ from Voter import *
 #TODO check input in terminal
 
 voter_identification_number = {}   
-def generate_voter_identification_number():
+def generate_voter_identification_number(voter_name):
     random_number = random.randint(1000000000, 9999999999)
     if (not voter_identification_number.__contains__(random_number)):
-        print("Generated number is " + str(random_number))
+        if (voter_identification_number.__contains__(voter_name)):
+            print(voter_name + " has already voted")
         voter_identification_number[random_number] = True
         return random_number
     else:
@@ -28,9 +29,7 @@ candidates_num_input = input("Please enter the number of candidates in the elect
 candidates_num = int(candidates_num_input)
 
 candidate_counter = 0
-# While loop candidates_num >= candidate_counter
 while (candidates_num > candidate_counter):
-    # Check if candidate exists & dont lets them add
     candidates_name_input = input("Please enter the name of the candidate number " + str(candidate_counter + 1) + "\n")
     candidates_name = str(candidates_name_input)
     if (candidate_list.__contains__(candidates_name)):
@@ -42,46 +41,53 @@ while (candidates_num > candidate_counter):
 print("List of candidates are: ")
 print(candidate_list)
 
-
-
-
-#====================
-
-validation_number_list = cla.valid_nums_list()              #TODO ctf initialization does not need list of validation numbers
-ctf = Central_tabulating_facility(validation_number_list)   #CLA sends validation numbers to CTF and adds voters to the list
+  
+ctf = Central_tabulating_facility()             #CLA sends validation numbers to CTF and adds voters to the list
 for name in candidate_list:                                 #CTF initializes the names of candidates
     ctf.initialize_candidate_names(name)
 
 
-
+#=================================
 
 voters_num_input = input("Please enter the number of voters\n")
 voters_num = int(voters_num_input)
 
 vote_counter = 0
 # While loop voters_num >= vote_counter
-voter_name_input = input("Please enter name of the voter number " + (vote_counter + 1) + "\n")
+while(voters_num > vote_counter):
+    voter_name_input = input("Please enter name of the voter number " + str(vote_counter + 1) + "\n")
 
-voter_id_number = generate_voter_identification_number()
-voter = Voter(voter_id_number)
-cla.store_validation_number(voter_id_number, voter_name_input)
+    voter_id_number = generate_voter_identification_number(str(voter_name_input))
+    voter = Voter(voter_id_number)
+    
+    # Generates validation number for voter and stores it with identification number
+    voter_validation_number = cla.send_validation_number(voter_id_number)   
+    voter.set_validation_number(voter_validation_number)
 
-print(voter_name_input + " has the ideantification number " + voter_id_number + "\n")
-# get validation number
-voter_validation_number = cla.generate_validation_number()
-voter.set_validation_number(voter_validation_number)
+    print(voter_name_input + " has the ideantification number " + str(voter.get_identification_number()) + "\n")
 
-print("Validation number has been successfully sent")
+    print(candidate_list)
+    vote_input = input("Voter " + str(voter.get_identification_number()) + 
+    ", please enter the full name of the desired candidate\n")
+
+    vote = str(vote_input)
+    if (candidate_list.__contains__(vote)):
+        vote_counter += 1
+        voter.send_vote() #TODO implemnt vote
+    else:
+        print("Candidate is not in the list")
+
+    
+    # at pressing some key "stop", voting process stops break
 
 
+print("Validation numbers has been successfully sent")
+# print(cla.send_validation_number())
+
+#==========================
 
 
-vote_input = input("Voter " + voter_validation_number + ", please enter the number to vote for the desired candidate\n" + candidate_list + "\n")
-vote = int(vote_input)
-
-
-
-
+validation_number_list = cla.valid_nums_list()  
 
 '''
 Steps for voting

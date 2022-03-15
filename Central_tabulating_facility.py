@@ -6,9 +6,7 @@ class Central_tabulating_facility:
     list_of_voters = []
     votes = {}
 
-    def __init__(self, validation_number_list):
-        self.validation_number_list = validation_number_list
-        self.list_of_voters = []
+    def __init__(self):
         pass
 
     def update_list_of_voters(self, voter):
