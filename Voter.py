@@ -1,6 +1,6 @@
 class Voter:
     identification_number = -1
-    candidate = ''
+    candidate = ''  # For whom the voter voted for
     validation_number = -1
     ctf_public_key = ''
     voter_private_key = ''
@@ -15,7 +15,7 @@ class Voter:
     def set_validation_number(self, validation_number):
         self.validation_number = validation_number
 
-    #send (encryppted vote + validation number) + digital signature with ctf public key
+    # Gathering vote file that contains encrypted (vote + validation number) with digital signature on top of it
     def vote(self):
         if (self.validation_number == -1):
             print("Cannot vote! Need validation number")
@@ -25,14 +25,19 @@ class Voter:
     def get_validation_number(self):
         return self.validation_number
 
-    def encrypt_vote(self):
+    # Encrypt vote and validation number using the public key of CTF
+    def encrypt_vote_and_validation_number(self):
+        self.get_validation_number()
+        self.set_ctf_public_key()
         print("encrypted")
 
+    # Creating a digital signature of the document
     def digital_signature(self):
         print("signed")
 
     def set_ctf_public_key(self, ctf_public_key):
         self.ctf_public_key = ctf_public_key
 
+    # Sending vote securly
     def send_vote(self):
-        return 'vote'
+        return self.vote()

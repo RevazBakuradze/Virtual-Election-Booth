@@ -51,7 +51,7 @@ voters_num_input = input("Please enter the number of voters\n")
 voters_num = int(voters_num_input)
 
 vote_counter = 0
-# While loop voters_num >= vote_counter
+
 while(voters_num > vote_counter):
     voter_name_input = input("Please enter name of the voter number " + str(vote_counter + 1) + "\n")
 
@@ -101,3 +101,4 @@ Steps for voting
 4. voter send encryppted vote + validation number + signature with ctf public key
 5. ctf decrypts & updates the score
 '''
+

@@ -28,8 +28,3 @@ class Central_legitimimation_agency:
     def valid_nums_list(self):
         print(self.validation_number_recipient)
         return self.validation_number_recipient.keys()
-
-    #TODO probably take it out. Exposes voters
-    def get_validation_number_recipient(self):
-        print(self.validation_number_recipient)
-        # return self.validation_number_recipient

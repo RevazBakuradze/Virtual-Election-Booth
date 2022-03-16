@@ -3,7 +3,8 @@ from Central_legitimization_agency import *
 class Central_tabulating_facility:
     validation_number_list = [] # Expected from CLA
     list_of_voters = [] # Check who voted
-    votes = {}  #Tally
+    votes = {}  #Tally containing {candidate name : number of votes recieved}
+    private_key = ''    #For decrypting the incoming votes
 
     def __init__(self):
         pass
@@ -14,20 +15,18 @@ class Central_tabulating_facility:
     def set_validation_number_list(self, validation_number_list):
         self.validation_number_list = validation_number_list
 
-    def check_validation_number_exists(self, validation_number):
-        # if (validation_number_list.constains())
-        # return True
-        return False
-
     def decrypt_incoming_vote(self):
+        # Using RSA decrypt incomming vote
         print("decrypted")
 
     def initialize_candidate_names(self, name):
         self.votes[name] = 0
 
+    # Publish result
     def get_vote_results(self):
         return self.votes
 
+    # Update the election results
     def vote_for_candidate(self, candidate):
         if (self.votes[candidate].exists()):
             self.votes[candidate] += 1
