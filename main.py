@@ -98,6 +98,6 @@ Steps for voting
 2. cla sneds val num & adds votesr to the list
     after all voters are registered
 3. cla sends array of val-numbs to ctf
-4. voter sned encryppted vote + validation number + signature with ctf public key
+4. voter send encryppted vote + validation number + signature with ctf public key
 5. ctf decrypts & updates the score
 '''
