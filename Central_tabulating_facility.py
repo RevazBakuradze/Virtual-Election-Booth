@@ -1,5 +1,7 @@
 from Central_legitimization_agency import *
 import RSA
+from RSA import *
+from Val_Num_Vote import *
 
 class Central_tabulating_facility:
     validation_number_list = [] # Expected from CLA
@@ -33,3 +35,40 @@ class Central_tabulating_facility:
             self.votes[candidate] += 1
         else:
             print("The candidate " + candidate + " does not exist")
+
+    #TODO Check validity of candidate here not in terminal
+    def recieve_vote_and_validation_number(self, string):
+        print("ASDBIASHYBDIYABSDIYAB")
+        print(string)
+        vote_and_val_num = self.bin_to_str(RSA.decrypt(string, self.private_key))
+        print(RSA.decrypt(string, self.private_key))
+        print("ASDBIASHYBDIYABSDIYAB")
+        print(RSA.decrypt(self.bin_to_str(string), self.private_key))
+        print(vote_and_val_num)
+        print("ASDBIASHYBDIYABSDIYAB")
+        vote = Val_Num_Vote('', -1).get_candidate(vote_and_val_num)
+        val_num = Val_Num_Vote('', -1).get_validation_number(vote_and_val_num)
+
+        if (self.validation_number_list.__contains__(val_num)):
+            # Count vote
+            # Delete from validation_number_list
+            # Add to list_of_voters
+
+            # if () # Candidate is valid
+            self.vote_for_candidate(vote)
+
+            print("Done")
+    
+    # From https://www.adamsmith.haus/python/answers/how-to-convert-binary-to-string-in-python
+    def bin_to_str(self, binary: str):
+        binary_values = binary.split()
+        ascii_string = ""
+        for binary_value in binary_values:
+            an_integer = int(binary_value, 2)
+            ascii_character = chr(an_integer)
+            ascii_string += ascii_character
+
+
+        return ascii_string
+
+    

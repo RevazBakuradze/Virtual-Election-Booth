@@ -77,7 +77,10 @@ while(voters_num > vote_counter):
         vote = str(vote_input)
         if (candidate_list.__contains__(vote)):
             vote_counter += 1
-            voter.send_vote() #TODO implemnt vote
+            vote_to_send = voter.send_vote()
+            print("OADSOABSDOB")
+            print(vote_to_send)
+            ctf.recieve_vote_and_validation_number(vote_to_send)
         else:
             print("Candidate is not in the list")
 
@@ -89,6 +92,8 @@ ctf.set_validation_number_list(validation_number_list)
 print(ctf.validation_number_list)
 print("Validation numbers has been successfully sent")
 # print(cla.send_validation_number())
+
+ctf.get_vote_results()
 
 #==========================
 

@@ -33,7 +33,7 @@ def encrypt(message):
     return ciphertext
 
 # Only for CTF to decrypt votes + validation numbers
-def decrypt(ciphertext):
+def decrypt(ciphertext, private_key):
     plaintext = private_key.decrypt(
     ciphertext,
     padding.OAEP(
