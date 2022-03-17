@@ -3,10 +3,13 @@
 import random
 from Central_legitimization_agency import *
 from Central_tabulating_facility import *
+from RSA.RSA import generate_keys
 from Voter import *
 
 #TODO check input in terminal
 
+# Generate Public and Private Keys for CTF
+generate_keys()
 voters_list = []
 voter_identification_number = {}   
 def generate_voter_identification_number():

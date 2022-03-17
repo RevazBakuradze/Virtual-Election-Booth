@@ -1,35 +1,52 @@
 '''
 Thank you Aleksandr Molchagin for helping me writing keys in the file! 
-you are the legenda
+You are the legend
+
+https://cryptography.io/en/latest/hazmat/primitives/asymmetric/rsa/
 '''
 
-
-import os
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric import padding
+from cryptography.hazmat.primitives import hashes
 
-def generate_keys():
-    with open("keys/private_key.pem", "wb+") as private_key_file_obj:
-        with open("keys/public_key.pem", "wb+") as public_key_file_obj:
+private_key = rsa.generate_private_key(public_exponent=65537,key_size=2048)
+public_key = private_key.public_key()
 
-            private_key = rsa.generate_private_key(
-                                public_exponent=65537,
-                                key_size=2048,
-                            )
-            public_key = private_key.public_key()
+# Only for CTF
+def get_private_key():
+    return private_key
 
-            private_key_bytes = private_key.private_bytes(
-                encoding=serialization.Encoding.PEM,
-                format=serialization.PrivateFormat.TraditionalOpenSSL,
-                encryption_algorithm=serialization.NoEncryption()
+# For voters
+def get_private_key():
+    return public_key
+
+# For voters to encrypt their vote + validation number
+# Votes have to be in binary form, so pass b"message" as a parameter
+def encrypt(message):
+    ciphertext = public_key.encrypt(message, padding.OAEP(
+                mgf=padding.MGF1(algorithm=hashes.SHA256()),
+                algorithm=hashes.SHA256(), label=None
             )
+        )
 
-            private_key_file_obj.write(private_key_bytes)
-            public_key_bytes = public_key.public_bytes(
-                encoding=serialization.Encoding.PEM,
-                format=serialization.PublicFormat.SubjectPublicKeyInfo
-            )
-            public_key_file_obj.write(public_key_bytes)
+    return ciphertext
 
-# Generate Public and Private Keys for CTF
-generate_keys()
+# Only for CTF to decrypt votes + validation numbers
+def decrypt(ciphertext):
+    plaintext = private_key.decrypt(
+    ciphertext,
+    padding.OAEP(
+        mgf=padding.MGF1(algorithm=hashes.SHA256()),
+        algorithm=hashes.SHA256(),label=None
+        )
+    )
+    return plaintext
+
+# Only for testing purposes
+def test_encryption_decryption_works():
+    message = b"Oh, hello there. Just testing :-)"
+    ciphertext = encrypt(message)
+    decrypted_msg = decrypt(ciphertext)
+    print(ciphertext)
+    print(decrypted_msg)

@@ -15,7 +15,7 @@ class Voter:
     def set_validation_number(self, validation_number):
         self.validation_number = validation_number
 
-    # Gathering vote file that contains encrypted (vote + validation number) with digital signature on top of it
+    # Gathering vote file that contains encrypted (vote + validation number)
     def vote(self):
         if (self.validation_number == -1):
             print("Cannot vote! Need validation number")
@@ -30,10 +30,6 @@ class Voter:
         self.get_validation_number()
         self.set_ctf_public_key()
         print("encrypted")
-
-    # Creating a digital signature of the document
-    def digital_signature(self):
-        print("signed")
 
     def set_ctf_public_key(self, ctf_public_key):
         self.ctf_public_key = ctf_public_key
