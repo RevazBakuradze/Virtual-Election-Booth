@@ -38,14 +38,11 @@ class Central_tabulating_facility:
 
     #TODO Check validity of candidate here not in terminal
     def recieve_vote_and_validation_number(self, string):
-        print("ASDBIASHYBDIYABSDIYAB")
-        print(string)
         vote_and_val_num = self.bin_to_str(RSA.decrypt(string, self.private_key))
         print(RSA.decrypt(string, self.private_key))
-        print("ASDBIASHYBDIYABSDIYAB")
         print(RSA.decrypt(self.bin_to_str(string), self.private_key))
+        print(string)
         print(vote_and_val_num)
-        print("ASDBIASHYBDIYABSDIYAB")
         vote = Val_Num_Vote('', -1).get_candidate(vote_and_val_num)
         val_num = Val_Num_Vote('', -1).get_validation_number(vote_and_val_num)
 
@@ -56,7 +53,6 @@ class Central_tabulating_facility:
 
             # if () # Candidate is valid
             self.vote_for_candidate(vote)
-
             print("Done")
     
     # From https://www.adamsmith.haus/python/answers/how-to-convert-binary-to-string-in-python
@@ -67,8 +63,4 @@ class Central_tabulating_facility:
             an_integer = int(binary_value, 2)
             ascii_character = chr(an_integer)
             ascii_string += ascii_character
-
-
         return ascii_string
-
-    
