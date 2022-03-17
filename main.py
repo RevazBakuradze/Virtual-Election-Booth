@@ -3,14 +3,12 @@
 import random
 from Central_legitimization_agency import *
 from Central_tabulating_facility import *
-from RSA.RSA import generate_keys
 from Voter import *
 
 #TODO check input in terminal
 
 # Generate Public and Private Keys for CTF
-generate_keys()
-voters_list = []
+voters_list = []    #TODO Need to import it to CTF. Do not restrict voters! just check for duplicates
 voter_identification_number = {}   
 def generate_voter_identification_number():
     random_number = random.randint(1000000000, 9999999999)

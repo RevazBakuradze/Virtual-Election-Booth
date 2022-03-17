@@ -1,10 +1,11 @@
 from Central_legitimization_agency import *
+import RSA
 
 class Central_tabulating_facility:
     validation_number_list = [] # Expected from CLA
     list_of_voters = [] # Check who voted
     votes = {}  #Tally containing {candidate name : number of votes recieved}
-    private_key = ''    #For decrypting the incoming votes
+    private_key = RSA.get_private_key()    #For decrypting the incoming votes
 
     def __init__(self):
         pass

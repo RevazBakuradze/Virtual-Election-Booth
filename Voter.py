@@ -1,9 +1,11 @@
+import RSA
+from Val_Num_Vote import *
+
 class Voter:
     identification_number = -1
-    candidate = ''  # For whom the voter voted for
+    val_num_vote = ''  # For whom the voter voted for
     validation_number = -1
-    ctf_public_key = ''
-    voter_private_key = ''
+    ctf_public_key = RSA.public_key()
 
     def __init__(self, identification_number):
         self.identification_number = identification_number 
@@ -15,25 +17,18 @@ class Voter:
     def set_validation_number(self, validation_number):
         self.validation_number = validation_number
 
-    # Gathering vote file that contains encrypted (vote + validation number)
-    def vote(self):
+    # Gathering vote file that contains encrypted (vote + validation number)    
+    def vote(self, candidate):
         if (self.validation_number == -1):
             print("Cannot vote! Need validation number")
         else:
-            print('voted')
-    
-    def get_validation_number(self):
-        return self.validation_number
-
+            self.val_num_vote = Val_Num_Vote(candidate, self.validation_number).generate_str()
+            
     # Encrypt vote and validation number using the public key of CTF
     def encrypt_vote_and_validation_number(self):
-        self.get_validation_number()
-        self.set_ctf_public_key()
-        print("encrypted")
-
-    def set_ctf_public_key(self, ctf_public_key):
-        self.ctf_public_key = ctf_public_key
+        return RSA.encrypt(self.val_num_vote)
 
     # Sending vote securly
     def send_vote(self):
-        return self.vote()
+        print(self.encrypt_vote_and_validation_number())
+        return self.encrypt_vote_and_validation_number()
