@@ -5,7 +5,7 @@ class Voter:
     identification_number = -1
     val_num_vote = ''  # For whom the voter voted for
     validation_number = -1
-    ctf_public_key = RSA.public_key()
+    ctf_public_key = RSA.get_public_key()
 
     def __init__(self, identification_number):
         self.identification_number = identification_number 
@@ -26,7 +26,7 @@ class Voter:
             
     # Encrypt vote and validation number using the public key of CTF
     def encrypt_vote_and_validation_number(self):
-        return RSA.encrypt(self.val_num_vote)
+        return RSA.encrypt(b"self.val_num_vote")
 
     # Sending vote securly
     def send_vote(self):
